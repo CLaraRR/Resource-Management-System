@@ -1,0 +1,91 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@page import="entity.*"%>
+<jsp:useBean id="taskMgr" class="entity.TaskMgr" scope="application"/>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <base href="<%=basePath%>">
+    
+    <title>任务页面</title>
+    
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+
+  </head>
+  
+  <body>
+  <p>教师页面-&gt;任务管理-&gt;任务列表
+    <br>
+  </p>
+  <form name="searchForm" method="post" action="../admin/searchTask.jsp">
+
+  	 请选择搜索条件： <select name="searchType">
+  	    <option value="0">任务名</option>
+  	    <option value="1">日期</option>
+    </select>
+   	<label>
+  	请输入搜索内容：<input type="text" name="searchInput">
+  	</label>
+	<label>
+	   
+	   <input type="submit" name="Submit" value="提交">
+	</label>
+	
+
+<p></p>
+  
+  任务列表：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 <input type="button" align="right" value="添加任务" onClick="location.href='../teacher/addTask.jsp'">
+  <table width="95%" height="125" border="1">
+    <tr>
+      <th width="15%" height="46" bgcolor="#FF8B53" scope="col">任务名</th>
+      <th width="15%" height="46" bgcolor="#FF8B53" scope="col">任务描述</th>
+      <th width="15%" height="46" bgcolor="#FF8B53" scope="col">截止日期</th>
+      <th  width="15%" bgcolor="#FF8B53" scope="col">编辑</th>
+      <th  width="15%" bgcolor="#FF8B53" scope="col">提交情况</th>
+      <th  width="15%" bgcolor="#FF8B53" scope="col">删除</th>
+    </tr>
+     <%
+	java.util.HashMap<String,Task> taskmap = new java.util.HashMap<String,Task>();
+    taskmap = taskMgr.getTaskList();
+	java.util.Iterator iterator = taskmap.keySet().iterator();
+
+	while(iterator.hasNext()){
+		Task task = (Task)taskmap.get(iterator.next());
+		if(!task.getTaskauthor().equals(session.getAttribute("usernum")))
+			continue;
+%>
+      <tr>
+    <td align="center"><%=task.getTaskname()%></td>
+    <td align="center"><%=task.getTaskdes()%></td>
+     <td align="center"> <%=task.getTaskdeadline() %>
+     </td>
+    <td align="center">
+     <input type="button" align="right" value="编辑" onClick="location.href='../teacher/editTask.jsp?tasknum=<%=task.getTasknum()%>'">
+     </td>  
+     <td align="center">
+     <input type="button" align="right" value="查看" onClick="location.href='../teacher/checkComplete.jsp?taskname=<%=task.getTaskname()%>'">
+     </td> 
+    <td align="center">
+    <a href="servlet/TaskServlet?operation=del&tasknum=<%=task.getTasknum()%>" onclick='return window.confirm("该任务将被删除，\n您确实要删除任务吗？")'>删除</a>
+    </td>
+    
+  </tr>
+  <%
+  	}
+  %>
+  </table>
+</form>
+  </body>
+</html>

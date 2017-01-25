@@ -1,0 +1,13 @@
+eclipse.preferences.version=1
+encoding//WebRoot/admin/addUser.jsp=UTF-8
+encoding//WebRoot/student/showSingleResource.jsp=UTF-8
+encoding//src/entity/Resource.java=UTF-8
+encoding//src/entity/ResourceMgr.java=UTF-8
+encoding//src/entity/Task.java=UTF-8
+encoding//src/entity/TaskMgr.java=UTF-8
+encoding//src/entity/User.java=UTF-8
+encoding//src/entity/UserMgr.java=UTF-8
+encoding//src/servlet/LoginServlet.java=UTF-8
+encoding//src/servlet/ResourceServlet.java=UTF-8
+encoding//src/servlet/TaskServlet.java=UTF-8
+encoding//src/servlet/UserServlet.java=UTF-8
