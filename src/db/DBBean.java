@@ -11,7 +11,8 @@ public class DBBean {
 		Connection conn = null;
 		try {
 			Class.forName("org.gjt.mm.mysql.Driver").newInstance();
-			String url = "jdbc:mysql://localhost/resourcemanagementsystem?user=root&password=adt176367137&useUnicode=true&characterEncoding=utf-8";
+			//password请改成你自己的数据库密码
+			String url = "jdbc:mysql://localhost/resourcemanagementsystem?user=root&password=123456&useUnicode=true&characterEncoding=utf-8";
 			conn = DriverManager.getConnection(url);
 		} catch (Exception e) {
 			e.printStackTrace();
